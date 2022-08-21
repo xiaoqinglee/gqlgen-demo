@@ -12,30 +12,34 @@ import (
 )
 
 // CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
-}
+//func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+//	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
+//}
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
 	todo := &model.Todo{
-		Text: input.Text,
-		ID:   fmt.Sprintf("T%d", rand.Int()),
-		User: &model.User{ID: input.UserID, Name: "user " + input.UserID},
+		Text:   input.Text,
+		ID:     fmt.Sprintf("T%d", rand.Int()),
+		UserID: input.UserID,
+		User:   &model.User{ID: input.UserID, Name: "user " + input.UserID},
 	}
 	r.todos = append(r.todos, todo)
 	return todo, nil
 }
 
 // Todos is the resolver for the todos field.
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: Todos - todos"))
-}
+//func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
+//	panic(fmt.Errorf("not implemented: Todos - todos"))
+//}
 func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 	return r.todos, nil
 }
 
 // User is the resolver for the user field.
+//func (r *todoResolver) User(ctx context.Context, obj *model.Todo) (*model.User, error) {
+//	panic(fmt.Errorf("not implemented: User - user"))
+//}
 func (r *todoResolver) User(ctx context.Context, obj *model.Todo) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: User - user"))
+	return &model.User{ID: obj.UserID, Name: "user " + obj.UserID}, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
